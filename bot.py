@@ -189,19 +189,19 @@ def buna(update, context):
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img10.jpg', 'rb'))
 
-        sleep(180)
+        sleep(60)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img1.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"here is your 'ABOL', {user_name}!!")
-        sleep(180)
+        sleep(60)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img2.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"here is your 'TONA', {user_name}!")
-        sleep(180)
+        sleep(60)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img5.jpg', 'rb'))
         context.bot.send_message(
