@@ -170,7 +170,7 @@ def introduce(update, context):
     text = (
         f"Esey Esey {update.message.chat.title}-n buna bete edergewalew!\n"
         "Ahun bunayien lafla denbegnochiem yisebsebu"
-        "\n\n\nCheck the /help command for more info!"
+        "\n\nCheck the /help command for more info!"
     )
     send_async(context, chat_id=chat_id, text=text)
 
@@ -183,25 +183,30 @@ def buna(update, context):
 
     if message.lower() == 'buna':
         context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=f'Eshi {user_name}')
+        context.bot.send_message(
                 chat_id=update.effective_chat.id,
-                text='Bunaw be 5 deqiqa yidersal!!!\n\n'
-                     'Techawetu')
+                text='Bunaw be 5 deqiqa yidersal!!!')
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text='Techawetu')
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img10.jpg', 'rb'))
 
-        sleep(60)
+        sleep(120)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img1.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"here is your 'ABOL', {user_name}!!")
-        sleep(60)
+        sleep(120)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img2.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"here is your 'TONA', {user_name}!")
-        sleep(60)
+        sleep(120)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img5.jpg', 'rb'))
         context.bot.send_message(
