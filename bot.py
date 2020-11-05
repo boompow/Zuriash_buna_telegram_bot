@@ -142,7 +142,7 @@ def goodbye(update, context):
         return
     # Use default message if there's no custom one set
     if text is None:
-        text = "Chaw chaw, $username!"
+        text = "ቻው ቻው $username!"
 
     # Replace placeholders and send message
     text = text.replace("$username", message.left_chat_member.first_name)
@@ -181,7 +181,7 @@ def buna(update, context):
     message = str(update.message.text)
     user_name = str(update.message.from_user.first_name)
 
-    if message.lower() == 'buna':
+    if message.lower() == 'buna' or message.lower() == 'ቡና':
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f'እሺ {user_name}')
@@ -190,7 +190,7 @@ def buna(update, context):
                 text='ቡናው በአምስት ደቂቃ ይደርሳል!!!')
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text='ተጫወቱ')
+            text='ተጫወቱ!!!')
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img10.jpg', 'rb'))
 
