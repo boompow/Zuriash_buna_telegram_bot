@@ -184,7 +184,7 @@ def buna(update, context):
     if message.lower() == 'buna':
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f'Eshi {user_name}')
+            text=f'እሺ {user_name}')
         context.bot.send_message(
                 chat_id=update.effective_chat.id,
                 text='Bunaw be 5 deqiqa yidersal!!!')
