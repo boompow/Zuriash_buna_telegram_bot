@@ -112,8 +112,8 @@ def welcome(update, context, new_member):
 
     # Use default message if there's no custom one set
     if text is None:
-        text = (f"Selam $username! Enkuan wede $title beselam metachu "
-                "buna kefelegachu, zuriyie 'buna' beleugn")
+        text = (f"ሰላም $username! እንኳን ወደ $title በሰላም መጣችሁ "
+                "ቡና ከፈለጋችሁ ዙሪዬ 'buna' በሉኝ።")
 
     # Replace placeholders and send message
     text = text.replace("$username", new_member.first_name)
@@ -168,8 +168,8 @@ def introduce(update, context):
     db.set(str(chat_id) + "_lck", True)
 
     text = (
-        f"Esey Esey {update.message.chat.title}-n buna bete edergewalew!\n"
-        "Ahun bunayien lafla denbegnochiem yisebsebu"
+        f"እሰይ እሰይ {update.message.chat.title}-ን ቡና ቤቴ አደርገዋለሁ!!!\n"
+        "አሁን ቡናዬን ላፍላ ደንበኞቼም ይሰብሰቡ።"
         "\n\nCheck the /help command for more info!"
     )
     send_async(context, chat_id=chat_id, text=text)
@@ -187,10 +187,10 @@ def buna(update, context):
             text=f'እሺ {user_name}')
         context.bot.send_message(
                 chat_id=update.effective_chat.id,
-                text='Bunaw be 5 deqiqa yidersal!!!')
+                text='ቡናው በአምስት ደቂቃ ይደርሳል!!!')
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text='Techawetu')
+            text='ተጫወቱ')
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img10.jpg', 'rb'))
 
@@ -199,22 +199,22 @@ def buna(update, context):
                                photo=open('img1.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f"here is your 'ABOL', {user_name}!!")
+            text=f"አቦሉ ደርሷል {user_name}!!")
         sleep(120)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img2.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f"here is your 'TONA', {user_name}!")
+            text=f"ቶናው ደርሷል {user_name}!!")
         sleep(120)
         context.bot.send_photo(chat_id=update.effective_chat.id,
                                photo=open('img5.jpg', 'rb'))
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f"here is your 'BEREKA', {user_name}!!")
+            text=f"በረካው ደርሷል {user_name}!!")
         context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Techawetu")
+            text="ተጫወቱ!!!")
 
 
 # Print help text
