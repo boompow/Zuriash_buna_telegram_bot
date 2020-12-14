@@ -11,23 +11,31 @@ import sys
 ''' Thank you for the codes that were made available to me on GITHUB'''
 
 
+# help_text = (
+#     "Serves Coffee as a picture in the traditional three set"
+#     "Abol, Tona, Bereka to anyone who typed buna or coffee"
+#     ". By default, only the person who invited the bot into "
+#     "the group is able to change settings.\nCommands:\n\n"
+#     "/welcome - Set welcome message\n"
+#     "/goodbye - Set goodbye message\n"
+#     "/disable\\_goodbye - Disable the goodbye message\n"
+#     "/lock - Only the person who invited the bot can change messages\n"
+#     "/unlock - Everyone can change messages\n"
+#     '/quiet - Disable "Sorry, only the person who..." '
+#     "& help messages\n"
+#     '/unquiet - Enable "Sorry, only the person who..." '
+#     "& help messages\n\n"
+#     "You can use _$username_ and _$title_ as placeholders when setting"
+#     " messages. [HTML formatting]"
+#     "(https://core.telegram.org/bots/api#formatting-options) "
+#     "is also supported.\n"
+# )
+
+
 help_text = (
-    "Welcomes everyone that enters a group chat that this bot is a "
-    "part of. By default, only the person who invited the bot into "
-    "the group is able to change settings.\nCommands:\n\n"
-    "/welcome - Set welcome message\n"
-    "/goodbye - Set goodbye message\n"
-    "/disable\\_goodbye - Disable the goodbye message\n"
-    "/lock - Only the person who invited the bot can change messages\n"
-    "/unlock - Everyone can change messages\n"
-    '/quiet - Disable "Sorry, only the person who..." '
-    "& help messages\n"
-    '/unquiet - Enable "Sorry, only the person who..." '
-    "& help messages\n\n"
-    "You can use _$username_ and _$title_ as placeholders when setting"
-    " messages. [HTML formatting]"
-    "(https://core.telegram.org/bots/api#formatting-options) "
-    "is also supported.\n"
+    "ዙሪያሽ በባህላችን የተለመደው በወሬ ጨዋታ ጊዜ የሚቀርበውን ቡና online chat ላይም እንዳይቀር "
+    "ቡና የምታቀርብ bot ናት። በባህላችህንም መሰረት መጀመሪያ አቦሉን ቀጥሎም ቶናውን ከዛም በረካውን ለጠየቃት ታቀርባለች።"
+    "ለማሰጀመር ቡና፣ buna ወይም coffee ብለው ጽፈው ይላኩ"
 )
 
 """
@@ -170,24 +178,37 @@ def introduce(update, context):
     text = (
         f"እሰይ እሰይ {update.message.chat.title}-ን ቡና ቤቴ አደርገዋለሁ!!!\n"
         "አሁን ቡናዬን ላፍላ ደንበኞቼም ይሰብሰቡ።"
-        "\n\nCheck the /help command for more info!"
+        # "\n\nCheck the /help command for more info!"
     )
     send_async(context, chat_id=chat_id, text=text)
 
 
 # print message
-def buna(update, context):
+def buna(update:Update, context:CallbackContext):
     """Prints message """
     message = str(update.message.text)
     user_name = str(update.message.from_user.first_name)
+    chat_id = update.effective_chat.id
 
-    if message.lower() == 'buna' or message.lower() == 'ቡና':
+    if message in ["BUNA", "coffee", "Coffee", "COFFEE", "Buna", "buna", "ቡና"]:
+        buttons = [[InlineKeyboardButton(text="አዎ ጠይቂያለው", callback_data="yes")],
+                   [InlineKeyboardButton(text="አልጠየኩም", callback_data="no")]]
+
+        replay_markup = InlineKeyboardMarkup(buttons)
+        context.bot.send_message(chat_id=chat_id, text=f"አንዴት ኖት {user_name}። ቡና ጠየቁኝ እንዴ?", reply_markup=replay_markup)
+
+
+def buna_message(update:Update, context:CallbackContext):
+    user_name = str(update.message.from_user.first_name)
+    query = update.callback_query.data
+
+    if query == "yes":
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f'እሺ {user_name}')
         context.bot.send_message(
-                chat_id=update.effective_chat.id,
-                text='ቡናው በአምስት ደቂቃ ይደርሳል!!!')
+            chat_id=update.effective_chat.id,
+            text='ቡናው በአምስት ደቂቃ ይደርሳል!!!')
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text='ተጫወቱ!!!')
@@ -215,6 +236,10 @@ def buna(update, context):
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="ተጫወቱ!!!")
+
+    elif query == "no":
+        context.bot.send_message(chat_id=update.effective_chat.id,
+                                 text="እሺ ተጫወቱ።")
 
 
 # Print help text
@@ -429,6 +454,7 @@ def main():
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", help))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CallbackQueryHandler(buna_message))
     dp.add_handler(CommandHandler("welcome", set_welcome))
     dp.add_handler(CommandHandler("goodbye", set_goodbye))
     dp.add_handler(CommandHandler("disable_goodbye", disable_goodbye))
