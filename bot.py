@@ -201,7 +201,7 @@ def buna(update:Update, context:CallbackContext):
 def buna_message(update:Update, context:CallbackContext):
     user_name = str(update.message.from_user.first_name)
     query = update.callback_query.data
-
+    print(query)
     if query == "yes":
         context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -474,6 +474,7 @@ def main():
                           url_path='1457319887:AAELoLlfXeTkEy7J15ywP8I_E2YSBtKORJ4')
     # updater.bot.set_webhook(url=settings.WEBHOOK_URL)
     updater.bot.set_webhook("https://zuriashbunabot.herokuapp.com/" + '1457319887:AAELoLlfXeTkEy7J15ywP8I_E2YSBtKORJ4')
+
 
     updater.idle()
 
