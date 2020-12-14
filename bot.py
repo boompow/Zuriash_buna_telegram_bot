@@ -184,7 +184,7 @@ def introduce(update, context):
 
 
 # print message
-def buna(update:Update, context:CallbackContext):
+def buna(update, context):
     """Prints message """
     message = str(update.message.text)
     user_name = str(update.message.from_user.first_name)
@@ -198,8 +198,8 @@ def buna(update:Update, context:CallbackContext):
         context.bot.send_message(chat_id=chat_id, text=f"አንዴት ኖት {user_name}። ቡና ጠየቁኝ እንዴ?", reply_markup=replay_markup)
 
 
-def buna_message(update:Update, context:CallbackContext):
-    user_name = str(update.message.from_user.first_name)
+def buna_message(update, context):
+    user_name = str(update.callback_query.from_user.first_name)
     query = update.callback_query.data
     print(query)
     if query == "yes":
