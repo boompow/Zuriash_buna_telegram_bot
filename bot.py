@@ -201,13 +201,7 @@ def buna(update, context):
 def buna_message(update, context):
     user_name = str(update.callback_query.from_user.first_name)
     query = update.callback_query.data
-    count_yes = [1]
-    count_no = [1]
     if query == "yes":
-        count_yes.append(1)
-    elif query == "no":
-        count_no.append(1)
-    elif query == "yes" and len(count_yes)-1 == 1 and len(count_no)-1 == 0:
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f'እሺ {user_name}')
@@ -242,11 +236,9 @@ def buna_message(update, context):
             chat_id=update.effective_chat.id,
             text="ተጫወቱ!!!")
 
-    elif query == "no" and len(count_yes)-1 == 0 and len(count_no)-1 == 1:
+    elif query == "no":
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="እሺ ተጫወቱ።")
-    else:
-        None
 
 
 # Print help text
