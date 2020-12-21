@@ -103,7 +103,7 @@ def check(update, context, override_lock=None):
 
 
 # Welcome a user to the chat
-def welcome(update, context, new_member):
+def welcome(update, context):
     """ Welcomes a user to the chat """
     new_member = update.message.new_chat_members[0]
     message = update.message
@@ -410,14 +410,14 @@ def empty_message(update, context):
         db.set("chats", chats)
         logger.info("I have been added to %d chats" % len(chats))
 
-    if update.message.new_chat_members:
-        for new_member in update.message.new_chat_members:
-            # Bot was added to a group chat
-            if new_member.username == 'zuriashbunabot':
-                return introduce(update, context)
-            # Another user joined the chat
-            else:
-                return welcome(update, context, new_member)
+    if update.message.new_chat_members[0]:
+        # for new_member in update.message.new_chat_members:
+        # Bot was added to a group chat
+        if update.message.new_chat_members[0].username == 'zuriashbunabot':
+            return introduce(update, context)
+        # Another user joined the chat
+        else:
+            return welcome(update, context)
 
     # Someone left the chat
     elif update.message.left_chat_member is not None:
@@ -464,7 +464,7 @@ def main():
     dp.add_handler(CommandHandler("unquiet", unquiet))
 
     dp.add_handler(MessageHandler(Filters.text, buna), group=1)
-    dp.add_handler(MessageHandler(Filters.status_update, empty_message), group=3)
+    dp.add_handler(MessageHandler(Filters.status_update, empty_message))
 
     dp.add_error_handler(error)
 
