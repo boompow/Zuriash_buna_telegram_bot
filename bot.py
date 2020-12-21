@@ -105,7 +105,7 @@ def check(update, context, override_lock=None):
 # Welcome a user to the chat
 def welcome(update, context, new_member):
     """ Welcomes a user to the chat """
-
+    new_member = update.message.new_chat_members[0]
     message = update.message
     chat_id = message.chat.id
     logger.info(
