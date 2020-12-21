@@ -103,9 +103,9 @@ def check(update, context, override_lock=None):
 
 
 # Welcome a user to the chat
-def welcome(update, context):
+def welcome(update, context, new_member):
     """ Welcomes a user to the chat """
-    new_member = update.message.new_chat_members[0]
+    # new_member = update.message.new_chat_members[0]
     message = update.message
     chat_id = message.chat.id
     logger.info(
@@ -417,7 +417,7 @@ def empty_message(update, context):
                 return introduce(update, context)
             # Another user joined the chat
             else:
-                return welcome(update, context)
+                return welcome(update, context, new_member)
 
     # Someone left the chat
     elif update.message.left_chat_member is not None:
@@ -451,6 +451,7 @@ def error(update, context, **kwargs):
 def main():
     updater = Updater('1457319887:AAELoLlfXeTkEy7J15ywP8I_E2YSBtKORJ4')
     dp = updater.dispatcher
+    dp.add_handler(MessageHandler(Filters.status_update, welcome))
     dp.add_handler(CommandHandler("start", help))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CallbackQueryHandler(buna_message))
