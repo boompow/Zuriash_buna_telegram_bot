@@ -103,9 +103,9 @@ def check(update, context, override_lock=None):
 
 
 # Welcome a user to the chat
-def welcome(update, context):
+def welcome(update, context, new_member):
     """ Welcomes a user to the chat """
-    new_member = update.message.new_chat_members[0]
+    # new_member = update.message.new_chat_members[0]
     message = update.message
     chat_id = message.chat.id
     logger.info(
@@ -119,8 +119,8 @@ def welcome(update, context):
     text = db.get(str(chat_id))
 
     # Use default message if there's no custom one set
-    if text is None:
-        text = (f"ሰላም $username! እንኳን ወደ $title በሰላም መጣችሁ "
+    if text is False:
+        text = (f"ሰላም ሰላም $username! እንኳን ወደ $title በሰላም መጣችሁ "
                 "ቡና ከፈለጋችሁ ዙሪዬ 'buna' በሉኝ።")
 
     # Replace placeholders and send message
@@ -146,10 +146,10 @@ def goodbye(update, context):
     text = db.get(str(chat_id) + "_bye")
 
     # Goodbye was disabled
-    if text is False:
+    if text is None:
         return
     # Use default message if there's no custom one set
-    if text is None:
+    if text is False:
         text = "ቻው ቻው $username!"
 
     # Replace placeholders and send message
@@ -410,14 +410,14 @@ def empty_message(update, context):
         db.set("chats", chats)
         logger.info("I have been added to %d chats" % len(chats))
 
-    if update.message.new_chat_members[0]:
-        # for new_member in update.message.new_chat_members:
-        # Bot was added to a group chat
-        if update.message.new_chat_members[0].username == 'zuriashbunabot':
-            return introduce(update, context)
-        # Another user joined the chat
-        else:
-            return welcome(update, context)
+    if update.message.new_chat_members:
+        for new_member in update.message.new_chat_members:
+            # Bot was added to a group chat
+            if new_member.username == 'zuriashbunabot':
+                return introduce(update, context)
+            # Another user joined the chat
+            else:
+                return welcome(update, context, new_member)
 
     # Someone left the chat
     elif update.message.left_chat_member is not None:
