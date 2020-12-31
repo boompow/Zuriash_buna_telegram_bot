@@ -29,13 +29,14 @@ import sys
 #     " messages. [HTML formatting]"
 #     "(https://core.telegram.org/bots/api#formatting-options) "
 #     "is also supported.\n"
+
 # )
 
 
 help_text = (
     "ዙሪያሽ በባህላችን የተለመደው በወሬ ጨዋታ ጊዜ የሚቀርበውን ቡና online chat ላይም እንዳይቀር "
     "ቡና የምታቀርብ bot ናት። በባህላችህንም መሰረት መጀመሪያ አቦሉን ቀጥሎም ቶናውን ከዛም በረካውን ለጠየቃት ታቀርባለች።"
-    "ለማሰጀመር ቡና፣ buna ወይም coffee ብለው ጽፈው ይላኩ"
+    "ለማሰጀመር ቡና፣ buna ወይም coffee ብለው ጽፈው ይላኩ!!!"
 )
 
 """
@@ -190,7 +191,7 @@ def buna(update, context):
     user_name = str(update.message.from_user.first_name)
     chat_id = update.effective_chat.id
 
-    if message in ["BUNA", "coffee", "Coffee", "COFFEE", "Buna", "buna", "ቡና"]:
+    if message.lower() in ['buna', "coffee"] or message in ['ቡና']:
         buttons = [[InlineKeyboardButton(text="አዎ ጠይቂያለው", callback_data="yes")],
                    [InlineKeyboardButton(text="አልጠየኩም", callback_data="no")]]
 
