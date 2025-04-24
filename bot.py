@@ -450,7 +450,7 @@ def error(update, context, **kwargs):
 
 # All operates from there
 def main():
-    updater = Updater()
+    updater = Updater('telegram_bot_token')
     dp = updater.dispatcher
     dp.add_handler(MessageHandler(Filters.text, welcome), group=2)
     dp.add_handler(CommandHandler("start", help))
@@ -472,9 +472,9 @@ def main():
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
-                          url_path='')
+                          url_path='telegram_bot_token')
     # updater.bot.set_webhook(url=settings.WEBHOOK_URL)
-    updater.bot.set_webhook()
+    updater.bot.set_webhook("https://zuriashbunabot.herokuapp.com/" + 'telegram_bot_token')
 
 
     updater.idle()
