@@ -450,7 +450,7 @@ def error(update, context, **kwargs):
 
 # All operates from there
 def main():
-    updater = Updater('1457319887:AAELoLlfXeTkEy7J15ywP8I_E2YSBtKORJ4')
+    updater = Updater()
     dp = updater.dispatcher
     dp.add_handler(MessageHandler(Filters.text, welcome), group=2)
     dp.add_handler(CommandHandler("start", help))
@@ -472,9 +472,9 @@ def main():
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
-                          url_path='1457319887:AAELoLlfXeTkEy7J15ywP8I_E2YSBtKORJ4')
+                          url_path='')
     # updater.bot.set_webhook(url=settings.WEBHOOK_URL)
-    updater.bot.set_webhook("https://zuriashbunabot.herokuapp.com/" + '1457319887:AAELoLlfXeTkEy7J15ywP8I_E2YSBtKORJ4')
+    updater.bot.set_webhook()
 
 
     updater.idle()
