@@ -1,3 +1,6 @@
+**Created:14/12/2020
+Pushed: 24/4/2025**
+
 Here’s a basic structure for your Telegram bot documentation. You can expand it based on the bot's specific features and functionality.
 
 # Telegram Bot Documentation
